@@ -1,4 +1,3 @@
-// 类似编辑距离的动态规划思路！
 class Solution {
 public:
     int numDistinct(string S, string T) {
