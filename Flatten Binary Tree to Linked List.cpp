@@ -1,4 +1,3 @@
-// 树的先序遍历生成链表，用栈，简洁方法
 /**
  * Definition for binary tree
  * struct TreeNode {
@@ -26,6 +25,7 @@ public:
                 lastnode->right = p;
             }
             lastnode = p;
+            // push right child first
             if (p->right) s.push(p->right);
             if (p->left) s.push(p->left);
             
