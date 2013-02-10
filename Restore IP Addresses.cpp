@@ -12,18 +12,23 @@ public:
     
     bool check(string &s, int start, int end) {
         string substr(s, start, end - start +1);
-        int subint = atoi(substr.c_str());
-        return 0 <= subint && subint <= 255;
+        switch (substr.size()) {
+            case 1: return "0" <= substr && substr <= "9";
+            case 2: return "10" <= substr && substr <= "99";
+            case 3: return "100" <= substr && substr <= "255";
+        }
+        return false;
     }
     
     void dfs(string &s, int dep, int start) {
         if (dep == 4) {
             if (start == s.size()) {
                 string ip;
-                int pos = 0;
+                int k = 0;
                 for (int i = 0; i < 4; i++) {
-                    string part(s, pos, i - pos +1);
+                    string part(s, k, pos[i] - k +1);
                     ip += i == 0 ? part : "." + part;
+                    k = pos[i] +1;
                 }
                 res.push_back(ip);
             }
