@@ -7,12 +7,12 @@ public:
         int q = n -1;
         
         for (int i = m + n -1; i >= 0; i--) {
-            if (p == 0) {
+            if (p == -1) {
                 A[i] = B[q];
                 q--;
                 continue;
             }
-            if (q == 0) {
+            if (q == -1) {
                 A[i] = A[p];
                 p--;
                 continue;
