@@ -13,7 +13,6 @@ public:
         vector<int> h(n, 0);
         vector<int> left(n, 0);
         vector<int> right(n, 0);
-        int side = 0;
         
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
