@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void sortColors(int A[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int red = -1, white = -1, p = -1;
+        
+        while (++p < n) {
+            if (A[p] == 1) {
+                swap(A[p], A[++white]);
+            } else if (A[p] == 0) {
+                swap(A[p], A[++white]);
+                swap(A[white], A[++red]);
+            }
+        }
+    }
+};
