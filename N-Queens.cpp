@@ -2,29 +2,45 @@ class Solution {
 vector<int> pos;
 int m;
 vector<vector<string> > res;
+
+class Node {
+public:
+    int x;
+    int y;
+    Node(int xx, int yy): x(xx), y(yy) {}
+};
+
 public:
     vector<vector<string> > solveNQueens(int n) {
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
-        pos = vector<int>(n, 0);
         res.clear();
+        pos = vector<int>(n, 0);
+        if (n == 0) return res;
+        
         m = n;
-        putq(0);
+        stack<Node> s;
+        for (int i = 0; i < m; i++)
+            s.push(Node(0, i));
+            
+        while (!s.empty()) {
+            Node node = s.top();
+            s.pop();
+            if (check(node.x, node.y)) {
+                pos[node.x] = node.y;       
+                if (node.x == m-1) {
+                    addres();
+                } else {
+                    for (int k = 0; k < m; k++)
+                        s.push(Node(node.x+1, k));
+                }
+            } else {
+                // do nothing;
+            }
+            
+        }
         
         return res;
-    }
-    
-    void putq(int i) {
-        if (i == m) {
-            addres();
-            return;
-        }
-        for (int j = 0; j < m; j++) {
-            if (check(i, j)) {
-                pos[i] = j;
-                putq(i+1);
-            }
-        }
     }
     
     bool check(int i, int j) {
