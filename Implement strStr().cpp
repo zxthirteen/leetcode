@@ -32,8 +32,8 @@ public:
                 i++;
             } else {
                 m = m + i - x[i];
-                if (x[i] == -i-1) i = 0;  // x[0] is set -1
-                if (i != 0) i = x[i];                
+                if (x[i] == -1) i = 0;  // x[0] is set -1
+                else i = x[i];                
             }
             
          }
