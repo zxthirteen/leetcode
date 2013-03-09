@@ -19,12 +19,8 @@ public:
         }
         if (start == n+1) return;
         
+        dfs(sub, n, start+1, target);
         sub.push_back(start);
         dfs(sub, n, start+1, target-1);
-        for (int i = start+1; i <= n; i++) {
-            sub.pop_back();
-            sub.push_back(i);
-            dfs(sub, n, i+1, target-1);
-        }
     }
 };
