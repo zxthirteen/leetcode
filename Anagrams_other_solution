@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<string> anagrams(vector<string> &strs) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<string> > all;
+        map<string, int> strmap;
+        
+        for (int i = 0; i < strs.size(); i++) {
+            string s = strs[i];
+            sort(s.begin(), s.end());
+            if (strmap.find(s) == strmap.end()) {
+                strmap[s] = all.size();
+                vector<string> line;
+                line.push_back(strs[i]);
+                all.push_back(line);
+            } else {
+                all[strmap[s]].push_back(strs[i]);
+            }
+        }
+        
+        vector<string> res;
+        for (int i = 0; i < all.size(); i++) {
+            if (all[i].size() > 1) {
+                for (int j = 0; j < all[i].size(); j++) {
+                    res.push_back(all[i][j]);
+                }
+            }
+        }
+        
+        return res;
+    }
+};
