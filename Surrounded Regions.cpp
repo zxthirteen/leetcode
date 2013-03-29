@@ -6,7 +6,6 @@ public:
         point(int xx, int yy): x(xx), y(yy) {}
     };
     
-    vector<point> oneregion;
     int n;
     int m;
     void solve(vector<vector<char>> &board) {
@@ -17,38 +16,38 @@ public:
         n = board[0].size();
         
         for (int i = 0; i < m; i++) {
+            fillopenregion(board, i, 0);
+            fillopenregion(board, i, n-1);
+        }
+        for (int j = 0; j < n; j++) {
+            fillopenregion(board, 0, j);
+            fillopenregion(board, m-1, j);
+        }
+        
+        for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == 'X') continue;
-                if (!findregion(board, i, j))
-                    unfilloneregion(board);
-                oneregion.clear();
+                if (board[i][j] == 'E')
+                    board[i][j] = 'O';
+                else if (board[i][j] == 'O')
+                    board[i][j] = 'X';
             }
         }
     }
     
-    bool findregion(vector<vector<char>> &board, int x, int y) {
+    void fillopenregion(vector<vector<char>> &board, int x, int y) {
+        if (board[x][y] != 'O') return;
         queue<point> q;
         q.push(point(x, y));
         
         while (!q.empty()) {
             point p = q.front();
             q.pop();
-            if (p.x == 0 || p.x == m-1) return false;
-            if (p.y == 0 || p.y == n-1) return false;
-            board[p.x][p.y] = 'X';
-            oneregion.push_back(p);
-            if (board[p.x-1][p.y] == 'O') q.push(point(p.x-1, p.y));
-            if (board[p.x][p.y-1] == 'O') q.push(point(p.x, p.y-1));
-            if (board[p.x+1][p.y] == 'O') q.push(point(p.x+1, p.y));
-            if (board[p.x][p.y+1] == 'O') q.push(point(p.x, p.y+1));
-        }
-        
-        return true;
-    }
-    
-    void unfilloneregion(vector<vector<char>> &board) {
-        for (int i = 0; i < oneregion.size(); i++) {
-            board[oneregion[i].x][oneregion[i].y] = 'O';
+            
+            board[p.x][p.y] = 'E';
+            if (p.x > 0 && board[p.x-1][p.y] == 'O') q.push(point(p.x-1, p.y));
+            if (p.y > 0 && board[p.x][p.y-1] == 'O') q.push(point(p.x, p.y-1));
+            if (p.x < m-1 && board[p.x+1][p.y] == 'O') q.push(point(p.x+1, p.y));
+            if (p.y < n-1 && board[p.x][p.y+1] == 'O') q.push(point(p.x, p.y+1));
         }
     }
 };
