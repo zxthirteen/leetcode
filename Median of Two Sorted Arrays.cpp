@@ -1,31 +1,32 @@
 class Solution {
 public:
     double findMedianSortedArrays(int A[], int m, int B[], int n) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        if (n<m) return findMedian(A, B, 0, n-1, n, m);
-        else return findMedian(B, A, 0, m-1, m, n);
+        if ((m+n)%2 == 0) 
+            return (find(A, m, B, n, (m+n)/2) + find(A, m, B, n, (m+n)/2+1)+0.0)/2;
+        else 
+            return find(A, m, B, n, (m+n)/2+1);
     }
     
-    double findMedian(int A[], int B[], int l, int r, int nA, int nB) {
-        if (l>r) 
-            return findMedian(B, A, max(0, (nA+nB)/2-nA), min(nB, (nA+nB)/2), nB, nA);
+    int find(int A[], int nA, int B[], int nB, int k) {
+        if(nA == 0) return B[k-1];
+        if(nB == 0) return A[k-1];
+        if(k == 1) return min(A[0], B[0]);
+
+        int ax = nA/2;
+        int bx = nB/2;
         
-        // if nA+nB is even, try to find the right one in the two medians.
-        // if nA+nB is even, try to find the only median.
-        int i = (l+r)/2;
-        int j = (nA+nB)/2 - i - 1;
-        
-        if (j>=0 && A[i] < B[j]) 
-            return findMedian(A, B, i+1, r, nA, nB);
-        else if (j<nB-1 && A[i] > B[j+1]) 
-            return findMedian(A, B, l, i-1, nA, nB);
-        else {
-            if ( (nA+nB)%2 == 1 ) 
-                return A[i];
-            else if (i>0) 
-                return (A[i]+max(B[j], A[i-1]))/2.0;
-            else return (A[i]+B[j])/2.0;
+        if (A[ax] > B[bx]) {
+            if (ax + bx + 1 >= k) {
+                find(A, ax, B, nB, k);
+            } else {
+                find(A, nA, B + bx + 1, nB - bx - 1, k - bx - 1);
+            }
+        } else {
+            if (ax + bx + 1 >= k) {
+                find(A, nA, B, bx, k);
+            } else {
+                find(A + ax + 1, nA - ax - 1, B, nB, k - ax - 1);
+            }
         }
     }
 };
