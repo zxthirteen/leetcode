@@ -1,8 +1,10 @@
+/*
+Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing all ones and return its area.
+*/
+
 class Solution {
 public:
     int maximalRectangle(vector<vector<char> > &matrix) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         if (matrix.empty() || matrix[0].empty()) return 0;
         
         int res = 0;

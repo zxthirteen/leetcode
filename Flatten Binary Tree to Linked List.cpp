@@ -1,3 +1,28 @@
+/*
+Given a binary tree, flatten it to a linked list in-place.
+
+For example,
+Given
+
+         1
+        / \
+       2   5
+      / \   \
+     3   4   6
+The flattened tree should look like:
+   1
+    \
+     2
+      \
+       3
+        \
+         4
+          \
+           5
+            \
+             6
+*/
+
 /**
  * Definition for binary tree
  * struct TreeNode {
@@ -10,8 +35,6 @@
 class Solution {
 public:
     void flatten(TreeNode *root) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         if (!root) return;
         TreeNode *lastnode = NULL;
         stack<TreeNode *> s;
@@ -28,7 +51,6 @@ public:
             // push right child first
             if (p->right) s.push(p->right);
             if (p->left) s.push(p->left);
-            
         }
     }
 };

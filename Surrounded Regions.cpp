@@ -1,14 +1,14 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
 class Solution {
 public:
-    struct point {
-        int x;
-        int y;
-        point(int xx, int yy): x(xx), y(yy) {}
-    };
-    
-    int n;
     int m;
-    void solve(vector<vector<char>> &board) {
+    int n;
+    void solve(vector<vector<char> > &board) {
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
         m = board.size();
@@ -34,20 +34,24 @@ public:
         }
     }
     
-    void fillopenregion(vector<vector<char>> &board, int x, int y) {
+    void fillopenregion(vector<vector<char> > &board, int x, int y) {
         if (board[x][y] != 'O') return;
-        queue<point> q;
-        q.push(point(x, y));
+        queue<pair<int, int> > q;
+        q.push(make_pair(x, y));
         
         while (!q.empty()) {
-            point p = q.front();
+            pair<int, int> p = q.front();
             q.pop();
             
-            board[p.x][p.y] = 'E';
-            if (p.x > 0 && board[p.x-1][p.y] == 'O') q.push(point(p.x-1, p.y));
-            if (p.y > 0 && board[p.x][p.y-1] == 'O') q.push(point(p.x, p.y-1));
-            if (p.x < m-1 && board[p.x+1][p.y] == 'O') q.push(point(p.x+1, p.y));
-            if (p.y < n-1 && board[p.x][p.y+1] == 'O') q.push(point(p.x, p.y+1));
+            board[p.first][p.second] = 'E';
+            if (p.first > 0 && board[p.first-1][p.second] == 'O') q.push(make_pair(p.first-1, p.second));
+            if (p.second> 0 && board[p.first][p.second-1] == 'O') q.push(make_pair(p.first, p.second-1));
+            if (p.first < m-1 && board[p.first+1][p.second] == 'O') q.push(make_pair(p.first+1, p.second));
+            if (p.second < n-1 && board[p.first][p.second+1] == 'O') q.push(make_pair(p.first, p.second+1));
         }
     }
 };
+
+int main() {
+    return 0;
+}

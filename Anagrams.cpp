@@ -1,34 +1,30 @@
-struct Pair {
-    string s;
-    int index;
-    Pair(string ss, int ii): s(ss), index(ii) {}
-};
+/*
+Given an array of strings, return all groups of strings that are anagrams.
 
-bool comppair(Pair a, Pair b) {
-    a.s < b.s;
-}
+Note: All inputs will be in lower-case.
+*/
 
 class Solution {
 public:
     vector<string> anagrams(vector<string> &strs) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        vector<Pair> sortpair;
-        vector<string> res;
+        vector<string> result;
+        unordered_map<string, int> anamap;
         
-        for (int i = 0; i < strs.size(); i++) {
-            sortpair.push_back(Pair(strs[i], i));
-            sort(sortpair[i].s.begin(), sortpair[i].s.end());
+        for(auto i = strs.begin(); i != strs.end(); i++) {
+            string s = *i;
+            sort(s.begin(), s.end());
+            auto has = anamap.find(s);
+            if (has == anamap.end()) {
+                anamap.insert(make_pair(s, i-strs.begin()));
+            } else {
+                result.push_back(*i);
+                if (has->second >= 0) {
+                    result.push_back(strs[has->second]);
+                    has->second = -1;
+                }
+            }
         }
-        
-        sort(sortpair.begin(), sortpair.end(), comppair);
-        
-        for (int i = 0; i < sortpair.size(); i++) {
-            if ((i > 0 && sortpair[i].s == sortpair[i-1].s) 
-                || (i < sortpair.size() -1 && sortpair[i].s == sortpair[i+1].s))
-                res.push_back(strs[sortpair[i].index]);
-        }
-        
-        return res;
+    
+        return result;
     }
 };

@@ -1,11 +1,20 @@
+/*
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+[pic]
+
+Input:Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+*/
+
 class Solution {
 public:
     vector<string> res;
     string oneres;
     vector<string> board;
     vector<string> letterCombinations(string digits) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         res.clear();
         oneres = string(digits.size(), '0');
         if (digits.empty()) {

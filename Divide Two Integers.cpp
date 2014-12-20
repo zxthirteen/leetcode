@@ -1,4 +1,10 @@
 /*
+Divide two integers without using multiplication, division and mod operator.
+
+If it is overflow, return MAX_INT.
+*/
+
+/*
 N多个问题：
 1. 如果纯用减法，会超时；
 2. 如果对dividend直接取整，INT_MIN将出错，解决办法是把所有数都变成负数来计算；
@@ -7,11 +13,11 @@ N多个问题：
 class Solution {
 public:
     int divide(int dividend, int divisor) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        bool sign; 
-        if (dividend >= 0 && divisor >= 0 || dividend < 0 && divisor < 0) sign = true;
-        else sign = false;
+        if (dividend == INT_MIN && divisor == -1) {
+            return INT_MAX;
+        }
+        
+        bool sign = (dividend ^ divisor) >> 31 == 0;
         int res = 0;
         
         int times = -1;
@@ -25,7 +31,7 @@ public:
             times += times;
         }
         if (divisor == -1) 
-            res = abs(dividend);
+            res = dividend >= 0 ? dividend : -dividend;
         else 
             while (1) {
                 while (dividend > divisor && divisor <= old) {
@@ -37,7 +43,10 @@ public:
                 res += -times;
                 if (dividend == 0) break;
             } 
-        if (sign) return res;
-        return 0 - res;
+        if (sign) {
+            return res;
+        } else {
+            return 0 - res;
+        }
     }
 };
