@@ -1,8 +1,12 @@
+/*
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+*/
+
 class Solution {
 public:
     int minPathSum(vector<vector<int> > &grid) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         if (grid.size() == 0) return 0;
         int m = grid.size();
         int n = grid[0].size();

@@ -1,8 +1,12 @@
+/*
+Given two numbers represented as strings, return multiplication of the numbers as a string.
+
+Note: The numbers can be arbitrarily large and are non-negative.
+*/
+
 class Solution {
 public:
     string multiply(string num1, string num2) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         int m = num1.size(), n = num2.size();
         int *x = new int[m+n];
         

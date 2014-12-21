@@ -1,3 +1,7 @@
+/*
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+*/
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -9,8 +13,6 @@
 class Solution {
 public:
     ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         ListNode *newhead = new ListNode(0);
         ListNode *tail =  newhead;
         

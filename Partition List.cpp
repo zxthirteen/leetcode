@@ -9,8 +9,6 @@
 class Solution {
 public:
     ListNode *partition(ListNode *head, int x) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         ListNode *newhead = new ListNode(0);
         newhead->next = head;
         ListNode *r = newhead;

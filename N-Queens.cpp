@@ -1,71 +1,68 @@
+/*
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+[pic]
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+For example,
+There exist two distinct solutions to the 4-queens puzzle:
+
+[
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+*/
+
 class Solution {
-vector<int> pos;
-int m;
-vector<vector<string> > res;
-
-class Node {
-public:
-    int x;
-    int y;
-    Node(int xx, int yy): x(xx), y(yy) {}
-};
-
 public:
     vector<vector<string> > solveNQueens(int n) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        res.clear();
-        pos = vector<int>(n, 0);
-        if (n == 0) return res;
+        vector<vector<string> > r;
+        vector<int> s(n, -1);
         
-        m = n;
-        stack<Node> s;
-        for (int i = 0; i < m; i++)
-            s.push(Node(0, i));
-            
-        while (!s.empty()) {
-            Node node = s.top();
-            s.pop();
-            if (check(node.x, node.y)) {
-                pos[node.x] = node.y;       
-                if (node.x == m-1) {
-                    addres();
-                } else {
-                    for (int k = 0; k < m; k++)
-                        s.push(Node(node.x+1, k));
-                }
+        int i = 0;
+        while (i >= 0) {
+            if (i == n) {
+                addResult(r, s);
+                i--;
             } else {
-                // do nothing;
+                do {s[i]++;} while (s[i] < n && !check(s, i));
+                if (s[i] < n) {
+                    i++;
+                    continue;
+                } else {
+                    s[i] = -1;
+                    i--;
+                }
             }
-            
         }
-        
-        return res;
+        return r;
     }
     
-    bool check(int i, int j) {
-        for (int k = 0; k < i; k++) {
-            if (pos[k] == j) return false;
+    bool check(vector<int> &s, int i) {
+        int n = s.size();
+        for (int row = 0; row < i; row++) {
+            if (s[row] == s[i]) return false;
+            if (s[i]-(i-row) >= 0 && s[row] == s[i]-(i-row)) return false;
+            if (s[i]+(i-row) < n && s[row] == s[i]+(i-row)) return false;
         }
-        
-        int x = i, y = j;
-        while (0 <= --x && 0 <= --y) {
-            if (pos[x] == y) return false;
-        }
-        
-        x = i;
-        y = j;
-        while (0 <= --x && ++y < m) {
-            if (pos[x] == y) return false;
-        }
-        
         return true;
     }
     
-    void addres() {
-        vector<string> oneres(m, string(m, '.'));
-        for (int i = 0; i < m; i++)
-            oneres[i][pos[i]] = 'Q';
-        res.push_back(oneres);
+    void addResult(vector<vector<string> > &r, vector<int> &s) {
+        vector<string> one(s.size(), string(s.size(), '.'));
+        for (int i = 0; i < s.size(); i++) {
+            one[i][s[i]] = 'Q';
+        }
+        r.push_back(one);
     }
 };

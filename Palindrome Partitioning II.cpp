@@ -2,8 +2,6 @@ class Solution {
 public:
 vector<vector<int> > mx;
     int minCut(string s) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         int n = s.size();
         mx = vector<vector<int> >(n, vector<int>(n, -1));
         

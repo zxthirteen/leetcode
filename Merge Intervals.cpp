@@ -1,3 +1,11 @@
+/*
+Given a collection of intervals, merge all overlapping intervals.
+
+For example,
+Given [1,3],[2,6],[8,10],[15,18],
+return [1,6],[8,10],[15,18].
+*/
+
 /**
  * Definition for an interval.
  * struct Interval {
@@ -14,8 +22,6 @@ bool compInterval(Interval a, Interval b) {
 class Solution {
 public:
     vector<Interval> merge(vector<Interval> &intervals) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         if (intervals.empty()) return intervals;
         
         vector<Interval> res;

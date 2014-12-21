@@ -1,3 +1,7 @@
+/*
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+*/
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -6,40 +10,36 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-bool comp(ListNode *a, ListNode *b) {
+bool nodecomp(ListNode *a, ListNode *b) {
+    if (!a || !b) return true;
     return a->val > b->val;
 }
  
 class Solution {
 public:
     ListNode *mergeKLists(vector<ListNode *> &lists) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        vector<ListNode *> vh;
-        for (int i = 0; i < lists.size(); i++) {
-            if (lists[i]) vh.push_back(lists[i]);
-        }
+        vector<ListNode*> minheap;
         
-        ListNode *head = NULL;
-        ListNode **pre = &head;
-        
-        make_heap(vh.begin(), vh.end(), comp);
-        ListNode *newnode;
-        while (!vh.empty()) {
-            newnode = vh.front();
-            pop_heap(vh.begin(), vh.end(), comp);
-            vh.back() = vh.back()->next;
-            
-            *pre = newnode;
-            pre = &((*pre)->next);
-            
-            if (vh.back() == NULL) {
-                vh.pop_back();
-            } else {
-                push_heap(vh.begin(), vh.end(), comp);
+        for (auto i = lists.begin(); i != lists.end(); i++) {
+            if (*i != NULL) {
+                minheap.push_back(*i);
             }
         }
+        make_heap(minheap.begin(), minheap.end(), nodecomp);
         
-        return head;
+        ListNode *head = new ListNode(0);
+        ListNode *tail = head;
+        while (!minheap.empty()) {
+            tail->next = minheap[0];
+            pop_heap(minheap.begin(), minheap.end(), nodecomp);
+            if (minheap.back()->next == NULL) {
+                minheap.pop_back();
+            } else {
+                minheap.back() = minheap.back()->next;
+                push_heap(minheap.begin(), minheap.end(), nodecomp);
+            }
+            tail = tail->next;
+        }
+        return head->next;
     }
 };
