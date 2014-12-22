@@ -1,8 +1,12 @@
+/*
+Given a non-negative number represented as an array of digits, plus one to the number.
+
+The digits are stored such that the most significant digit is at the head of the list.
+*/
+
 class Solution {
 public:
     vector<int> plusOne(vector<int> &digits) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         vector<int> res(digits);
 
         res.back()++;

@@ -10,8 +10,6 @@
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         if (!root) return;
         queue<TreeLinkNode *> q;
         q.push(root);
