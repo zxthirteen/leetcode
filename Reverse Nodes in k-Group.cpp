@@ -9,39 +9,40 @@
 class Solution {
 public:
     ListNode *reverseKGroup(ListNode *head, int k) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        if (k == 1) return head;
-        ListNode *newhead = new ListNode(0);
-        newhead->next = head;
+        if (!head || k <= 1) return head;
+        ListNode *start = head, *prestart = NULL;
         
-        ListNode *start = newhead, *end = NULL;
-        ListNode *newstart, *pre, *p, *post;
-        
-        
-        while (1) {
+        ListNode *p, *post, *pre, *end;
+        while (true) {
+            int i = 0;
             end = start;
-            for (int i = 0; i < k && end; i++) {
+            while (end && i++ < k-1) {
                 end = end->next;
             }
             if (!end) break;
-            newstart = end->next;
             
-            pre = start->next;
-            p = pre->next;
-            post = p->next;
+            // reverse sub list from [start to end]
             
-            start->next = end;
-            pre->next = newstart;
-            start = pre;
-            while (pre != end) {
+            pre = end->next;
+            p = start;
+            i = k;
+            // My significate error happen here:
+            // while (p != end->next)
+            // Reason: end->next is changing!
+            while (i--) {
+                post = p->next;
                 p->next = pre;
                 pre = p;
                 p = post;
-                if (post) post = post->next;
             }
+            if (prestart) {
+                prestart->next = pre;
+            } else {
+                head = end;
+            }
+            prestart = start;
+            start = start->next;
         }
-        
-        return newhead->next;
+        return head;
     }
 };
