@@ -1,8 +1,12 @@
+/*
+Implement int sqrt(int x).
+
+Compute and return the square root of x.
+*/
+
 class Solution {
 public:
     int sqrt(int x) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         long long left = 0, right = x;
         long long mid = 0;
         
