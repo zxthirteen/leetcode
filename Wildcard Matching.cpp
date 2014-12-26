@@ -1,3 +1,55 @@
+/*
+Implement wildcard pattern matching with support for '?' and '*'.
+
+'?' Matches any single character.
+'*' Matches any sequence of characters (including the empty sequence).
+
+The matching should cover the entire input string (not partial).
+
+The function prototype should be:
+bool isMatch(const char *s, const char *p)
+
+Some examples:
+isMatch("aa","a") → false
+isMatch("aa","aa") → true
+isMatch("aaa","aa") → false
+isMatch("aa", "*") → true
+isMatch("aa", "a*") → true
+isMatch("ab", "?*") → true
+isMatch("aab", "c*a*b") → false
+*/
+
+/*
+This simple solution will Time Limit Exceeded
+https://oj.leetcode.com/discuss/10133/linear-runtime-and-constant-space-solution
+*/
+
+class Solution {
+public:
+    bool isMatch(const char *s, const char *p) {
+        if (!(s && p)) return false;
+        if (*p == '\0') return *s == '\0';
+    
+        if (*s == *p || *p == '?' && *s != '\0') return isMatch(s+1, p+1);
+        if (*p == '*') {
+            if (*(p-1) == '*') return isMatch(s, p+1);
+
+            while (*s != '\0') {
+                if (isMatch(s, p+1)) return true;
+                s++;
+            }   
+            if (isMatch(s,p+1)) return true;
+        }   
+        return false;
+    }
+};
+
+/*
+Accepted code
+做法：先根据*号把patern分段，然后找每段在s中的位置，如果有一个找不到，就是false
+如果有多个匹配其实无所谓，只要找到第一个就可以，因为*可以处理后面的任意字符
+*/
+
 class Solution {
 public:
     // split the pattern by '*'
@@ -20,8 +72,6 @@ public:
     }
 
     bool isMatch(const char *s, const char *p) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         if (*p == '\0') return (*s == '\0');
         bool starbegin = false, starend = false;
         if (*p == '*')

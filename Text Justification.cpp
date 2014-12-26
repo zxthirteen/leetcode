@@ -1,57 +1,76 @@
+/*
+Given an array of words and a length L, format the text such that each line has exactly L characters and is fully (left and right) justified.
+
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary so that each line has exactly L characters.
+
+Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line do not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+
+For the last line of text, it should be left justified and no extra space is inserted between words.
+
+For example,
+words: ["This", "is", "an", "example", "of", "text", "justification."]
+L: 16.
+
+Return the formatted lines as:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+Note: Each word is guaranteed not to exceed L in length.
+
+click to show corner cases.
+
+Corner Cases:
+A line other than the last line might contain only one word. What should you do in this case?
+In this case, that line should be left-justified.
+*/
+
 class Solution {
 public:
     vector<string> fullJustify(vector<string> &words, int L) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        vector<string> res;
-        string line;
-        int p = 0, q = -1;
-        int sum = 0;
-        
-        while (p < words.size()) {
-            q = p;
-            sum = words[q].size();
-            
-            while (q+1 < words.size() && sum + q-p+1 + words[q+1].size() <= L) {
-                q++;
-                sum += words[q].size();
-            } 
-            
-            if (p == q) {
-                line = words[p];
-                for (int i = 0; i < L - words[p].size(); i++)
-                    line += ' ';
-                p++;
-            } else if (q == words.size() -1) {
-                line = words[p];
-                p++;
-                for (; p <= q; p++) {
-                    line += ' ';
-                    line += words[p];
-                }
-                int spaces = L - line.size();
-                for (int i = 0; i < spaces; i++) {
-                    line += ' ';
+        vector<string> result;
+        auto i = words.begin();
+        while (i != words.end()) {
+            auto start = i;
+            int wordcount = 0;
+            int charcount = 0;
+            while (i != words.end() && charcount + wordcount + (*i).size() <= L) {
+                wordcount++;
+                charcount += (*i).size();
+                i++;
+            }
+            string line = "";
+            if (i != words.end()) {
+                if (wordcount == 1) {
+                    line = *start + string(L - charcount, ' ');
+                } else {
+                    int allspace = L - charcount;
+                    int everyspace = allspace/(wordcount -1);
+                    int extraspace = allspace%(wordcount -1);
+                    for (auto j = start; j != start + wordcount; j++) {
+                        line += *j;
+                        if (j != start + wordcount -1) {
+                            line += string(everyspace, ' ');
+                            if (j - start + 1 <= extraspace) {
+                                line += ' ';
+                            }
+                        }
+                    }
                 }
             } else {
-                int space = (L - sum)/(q - p);
-                int addition = L - sum - space * (q - p);
-                
-                line = words[p];
-                p++;
-                for (; p <= q; p++) {
-                    for (int i = 0; i < space; i++)
+                for (auto j = start; j != start + wordcount; j++) {
+                    line += *j;
+                    if (j != start+wordcount -1) {
                         line += ' ';
-                    if (addition) {
-                        line += ' ';
-                        addition--;
                     }
-                    line += words[p];
+                }
+                for (int t = 0; t < L - wordcount - charcount +1; t++) {
+                    line += ' ';
                 }
             }
-            res.push_back(line);
+            result.push_back(line);
         }
-        
-        return res;
+        return result;
     }
 };

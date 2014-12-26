@@ -1,8 +1,18 @@
+/*
+Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
+
+The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
+
+
+A partially filled sudoku which is valid.
+
+Note:
+A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
+*/
+
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char> > &board) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         set<char> num;
         const int n = 9;
         // lines:

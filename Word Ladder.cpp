@@ -1,8 +1,28 @@
+/*
+Given two words (start and end), and a dictionary, find the length of shortest transformation sequence from start to end, such that:
+
+Only one letter can be changed at a time
+Each intermediate word must exist in the dictionary
+For example,
+
+Given:
+start = "hit"
+end = "cog"
+dict = ["hot","dot","dog","lot","log"]
+As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+return its length 5.
+
+Note:
+Return 0 if there is no such transformation sequence.
+All words have the same length.
+All words contain only lowercase alphabetic characters.
+*/
+
+/* 广度优先搜索 */
+
 class Solution {
 public:
     int ladderLength(string start, string end, unordered_set<string> &dict) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         queue<string> q;
         unordered_set<string> used;
         
