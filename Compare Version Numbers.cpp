@@ -11,14 +11,13 @@ Here is an example of version numbers ordering:
 0.1 < 1.1 < 1.2 < 13.37
 */
 
-/* 要注意1.1 == 1.0的情况 */
+/* 要注意1 == 1.0的情况，这个情况不用特殊考虑，只要每次循环前把v1和v2都设成0就可以 */
 
 class Solution {
 public:
     int compareVersion(string version1, string version2) {
         int m = version1.size(), n = version2.size();
         int p = 0, q = 0;
-        int res = 0;
         int v1 = 0, v2 = 0;
         while (p < m || q < n) {
             v1 = 0; v2 = 0;
@@ -45,6 +44,6 @@ public:
             p++;
             q++;
         }
-        return res;
+        return 0;
     }
 };

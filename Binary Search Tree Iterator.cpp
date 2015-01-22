@@ -8,7 +8,7 @@ Note: next() and hasNext() should run in average O(1) time and uses O(h) memory,
 
 /* 
 有两点在写的时候出错了，
-1. 一个是hasNext的意思不是指当前结点的下一个结点，而是说当前容器里还有没有值，如果有的话返回该值然后再维护，
+1. 一个是hasNext的意思不是指当前结点的下一个结点，而是说当前容器里还有没有值，next()是返回当前该值然后再维护，
 2. 另一个是在中序遍历中，stack保存的不是从root到leaf的一条路径，而是一个全左序列，root被访问过之后，当前保存的只是root->right及之后的结点。
 */
 

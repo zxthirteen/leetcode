@@ -17,6 +17,10 @@ return its level order traversal as:
 confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on OJ.
 */
 
+/*
+用queue，每行间用null间隔，就可以在pop的时候判断一行是否已经结束
+*/
+
 /**
  * Definition for binary tree
  * struct TreeNode {

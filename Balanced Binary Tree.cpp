@@ -31,8 +31,6 @@ public:
     }
     
     bool isBalanced(TreeNode *root) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
         int totaldepth;
         return getdepth(root, &totaldepth);
     }
